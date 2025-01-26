@@ -17,7 +17,7 @@ function updateSprite(options) {
 
 // Example usage
 updateSprite({
-    image: 'custom-sprite.png',
+    image: 'ggjjy.png',
     size: 150,
     borderColor: 'blue'
 });
