@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>diddy simulator</title>
+    <title>diddy</title>
     <style>
         body {
             display: flex;
@@ -29,6 +29,16 @@
     <div class="sprite" id="sprite"></div>
 
     <script>
+        const sprite2 = document.getElementById('sprite');
+        let x = window.innerWidth / 2 - 50; // Center horizontally
+        let y = window.innerHeight / 2 - 50; // Center vertically
+
+        sprite2.style.left = `${x}px`;
+        sprite2.style.top = `${y}px`;
+        sprite2.setSprite = function(textureFileName) {
+            this.style.backgroundImage = `url('${textureFileName}')`;
+        };
+        
         const sprite = document.getElementById('sprite');
         let x = window.innerWidth / 2 - 50; // Center horizontally
         let y = window.innerHeight / 2 - 50; // Center vertically
@@ -78,6 +88,7 @@
 
         // Example: Set a default sprite texture when the page loads
         sprite.setSprite('./ggjjy.png'); // Replace 'sprite.png' with the actual file in your repository
+        sprite2.setSprite('./ggjjy.png'); // Replace 'sprite.png' with the actual file in your repository
     </script>
 </body>
 </html>
