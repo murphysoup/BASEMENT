@@ -38,25 +38,38 @@
 
         document.addEventListener('keydown', (event) => {
             const step = 10; // Pixels to move per keypress
+        const keysPressed = {};
 
-            switch (event.key) {
-                case 'w': // Move up
-                    y = Math.max(0, y - step);
-                    break;
-                case 'a': // Move left
-                    x = Math.max(0, x - step);
-                    break;
-                case 's': // Move down
-                    y = Math.min(window.innerHeight - 100, y + step);
-                    break;
-                case 'd': // Move right
-                    x = Math.min(window.innerWidth - 100, x + step);
-                    break;
+        document.addEventListener('keydown', (event) => {
+            keysPressed[event.key] = true;
+            moveSprite();
+        });
+
+        document.addEventListener('keyup', (event) => {
+            keysPressed[event.key] = false;
+        });
+
+        function moveSprite() {
+            const step = 10; // Pixels to move per keypress
+
+            if (keysPressed['w']) { // Move up
+                y = Math.max(0, y - step);
+            }
+            if (keysPressed['a']) { // Move left
+                x = Math.max(0, x - step);
+            }
+            if (keysPressed['s']) { // Move down
+                y = Math.min(window.innerHeight - 100, y + step);
+            }
+            if (keysPressed['d']) { // Move right
+                x = Math.min(window.innerWidth - 100, x + step);
             }
 
             sprite.style.left = `${x}px`;
             sprite.style.top = `${y}px`;
-        });
+
+            requestAnimationFrame(moveSprite); // Ensure smooth movement
+        }
 
         // Function to set a custom sprite texture
         sprite.setSprite = function(textureFileName) {
