@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MURPHY'S BASEMENT</title>
+    <title>GitHub Website</title>
     <style>
         body {
             display: flex;
@@ -16,24 +16,25 @@
             overflow: hidden;
         }
 
-        .blue-square {
+        .sprite {
             width: 100px;
             height: 100px;
-            background-color: blue;
+            background-size: cover;
+            background-position: center;
             position: absolute;
         }
     </style>
 </head>
 <body>
-    <div class="blue-square" id="blueSquare"></div>
+    <div class="sprite" id="sprite"></div>
 
     <script>
-        const square = document.getElementById('blueSquare');
+        const sprite = document.getElementById('sprite');
         let x = window.innerWidth / 2 - 50; // Center horizontally
         let y = window.innerHeight / 2 - 50; // Center vertically
 
-        square.style.left = `${x}px`;
-        square.style.top = `${y}px`;
+        sprite.style.left = `${x}px`;
+        sprite.style.top = `${y}px`;
 
         document.addEventListener('keydown', (event) => {
             const step = 10; // Pixels to move per keypress
@@ -53,9 +54,17 @@
                     break;
             }
 
-            square.style.left = `${x}px`;
-            square.style.top = `${y}px`;
+            sprite.style.left = `${x}px`;
+            sprite.style.top = `${y}px`;
         });
+
+        // Function to set a custom sprite texture
+        sprite.setSprite = function(texture) {
+            this.style.backgroundImage = `url('${texture}')`;
+        };
+
+        // Example: Set a default sprite texture when the page loads
+        sprite.setSprite('https://via.placeholder.com/100'); // Replace with your custom texture URL
     </script>
 </body>
 </html>
