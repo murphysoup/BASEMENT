@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ballshatty civilization</title>
+    <title>Ballshatty</title>
     <style>
         body {
             display: flex;
@@ -54,37 +54,40 @@
         sprite.style.left = `${x}px`;
         sprite.style.top = `${y}px`;
 
-        const keysPressed = {};
+  const keysPressed = {};
+        const sprites = [{ element: sprite, x, y }]; // Array to track all sprites
 
         document.addEventListener('keydown', (event) => {
             keysPressed[event.key] = true;
-            moveSprite();
+            moveSprites();
         });
 
         document.addEventListener('keyup', (event) => {
             keysPressed[event.key] = false;
         });
 
-        function moveSprite() {
-            const step = -0.2; // Pixels to move per keypress
+        function moveSprites() {
+            const step = 10; // Pixels to move per keypress
 
-            if (keysPressed['w']) { // Move up
-                y = Math.max(0, y - step);
-            }
-            if (keysPressed['a']) { // Move left
-                x = Math.max(0, x - step);
-            }
-            if (keysPressed['s']) { // Move down
-                y = Math.min(window.innerHeight - 100, y + step);
-            }
-            if (keysPressed['d']) { // Move right
-                x = Math.min(window.innerWidth - 100, x + step);
+            for (const spriteObj of sprites) {
+                if (keysPressed['w']) { // Move up
+                    spriteObj.y = Math.max(0, spriteObj.y - step);
+                }
+                if (keysPressed['a']) { // Move left
+                    spriteObj.x = Math.max(0, spriteObj.x - step);
+                }
+                if (keysPressed['s']) { // Move down
+                    spriteObj.y = Math.min(window.innerHeight - 100, spriteObj.y + step);
+                }
+                if (keysPressed['d']) { // Move right
+                    spriteObj.x = Math.min(window.innerWidth - 100, spriteObj.x + step);
+                }
+
+                spriteObj.element.style.left = `${spriteObj.x}px`;
+                spriteObj.element.style.top = `${spriteObj.y}px`;
             }
 
-            sprite.style.left = `${x}px`;
-            sprite.style.top = `${y}px`;
-
-            requestAnimationFrame(moveSprite); // Ensure smooth movement
+            requestAnimationFrame(moveSprites); // Ensure smooth movement
         }
 
         // Function to set a custom sprite texture
@@ -92,8 +95,28 @@
             this.style.backgroundImage = `url('${textureFileName}')`;
         };
 
+        // Function to create a new sprite
+        function createSprite(width, height, startX, startY, textureFileName) {
+            const newSprite = document.createElement('div');
+            newSprite.classList.add('sprite');
+            newSprite.style.width = `${width}px`;
+            newSprite.style.height = `${height}px`;
+            newSprite.style.left = `${startX}px`;
+            newSprite.style.top = `${startY}px`;
+            newSprite.style.backgroundImage = `url('${textureFileName}')`;
+            newSprite.style.backgroundSize = 'cover';
+            newSprite.style.backgroundPosition = 'center';
+            document.body.appendChild(newSprite);
+
+            sprites.push({ element: newSprite, x: startX, y: startY });
+        }
+
         // Example: Set a default sprite texture when the page loads
-        sprite.setSprite('./ggjjy.png');
+        sprite.setSprite('./ggjjy.png'); // Replace 'sprite.png' with the actual file in your repository
+
+        // Example: Create a new sprite when the page loads
+        createSprite(80, 80, 200, 200, './sprite2.png'); // Adjust parameters as needed
+
         sprite2.setSprite('./ggjjy.png');// Replace 'sprite.png' with the actual file in your repository
     </script>
 </body>
