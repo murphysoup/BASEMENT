@@ -3,21 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Murphys Balls</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>MURPHY'S BASEMENT</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            overflow: hidden;
+        }
+
+        .blue-square {
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+            position: absolute;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>skibidi</h1>
-    </header>
-    <main>
-        <p>This is a simple website hosted on <a href="https://github.com">GitHub Pages</a>!</p>
-        <button id="clickMe">Click Me!</button>
-        <p id="message"></p>
-    </main>
-    <footer>
-        <p>© 2025 My soup</p>
-    </footer>
-    <script src="script.js"></script>
+    <div class="blue-square" id="blueSquare"></div>
+
+    <script>
+        const square = document.getElementById('blueSquare');
+        let x = window.innerWidth / 2 - 50; // Center horizontally
+        let y = window.innerHeight / 2 - 50; // Center vertically
+
+        square.style.left = `${x}px`;
+        square.style.top = `${y}px`;
+
+        document.addEventListener('keydown', (event) => {
+            const step = 10; // Pixels to move per keypress
+
+            switch (event.key) {
+                case 'w': // Move up
+                    y = Math.max(0, y - step);
+                    break;
+                case 'a': // Move left
+                    x = Math.max(0, x - step);
+                    break;
+                case 's': // Move down
+                    y = Math.min(window.innerHeight - 100, y + step);
+                    break;
+                case 'd': // Move right
+                    x = Math.min(window.innerWidth - 100, x + step);
+                    break;
+            }
+
+            square.style.left = `${x}px`;
+            square.style.top = `${y}px`;
+        });
+    </script>
 </body>
 </html>
