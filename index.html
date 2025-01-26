@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Balls civilization</title>
+    <title>Ballshatty civilization</title>
     <style>
         body {
             display: flex;
@@ -66,7 +66,7 @@
         });
 
         function moveSprite() {
-            const step = 1; // Pixels to move per keypress
+            const step = -0.2; // Pixels to move per keypress
 
             if (keysPressed['w']) { // Move up
                 y = Math.max(0, y - step);
