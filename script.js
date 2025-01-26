@@ -1,3 +1,23 @@
-document.getElementById("actionButton").addEventListener("click", () => {
-    document.getElementById("output").innerText = "You clicked the button!";
+// Default settings
+const sprite = document.getElementById('sprite');
+
+// Example of customization
+function updateSprite(options) {
+    if (options.image) {
+        sprite.style.backgroundImage = `url(${options.image})`;
+    }
+    if (options.size) {
+        sprite.style.width = options.size + 'px';
+        sprite.style.height = options.size + 'px';
+    }
+    if (options.borderColor) {
+        sprite.style.borderColor = options.borderColor;
+    }
+}
+
+// Example usage
+updateSprite({
+    image: 'custom-sprite.png',
+    size: 150,
+    borderColor: 'blue'
 });
