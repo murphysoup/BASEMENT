@@ -71,16 +71,16 @@
 
             for (const spriteObj of sprites) {
                 if (keysPressed['w']) { // Move up
-                    spriteObj.y = Math.max(0, spriteObj.y - step);
+                    spriteObj.y -= step;
                 }
                 if (keysPressed['a']) { // Move left
-                    spriteObj.x = Math.max(0, spriteObj.x - step);
+                    spriteObj.x -= step;
                 }
                 if (keysPressed['s']) { // Move down
-                    spriteObj.y = Math.min(window.innerHeight - 100, spriteObj.y + step);
+                    spriteObj.y += step;
                 }
                 if (keysPressed['d']) { // Move right
-                    spriteObj.x = Math.min(window.innerWidth - 100, spriteObj.x + step);
+                    spriteObj.x += step;
                 }
 
                 spriteObj.element.style.left = `${spriteObj.x}px`;
