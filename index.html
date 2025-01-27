@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>rizz</title>
+    <title>rizzler ahh</title>
     <style>
         body {
             display: flex;
@@ -28,6 +28,12 @@
             height: 100px;
             background-size: cover;
             background-position: center;
+            position: absolute;
+        }
+        .wall {
+            width: 100px;
+            height: 100px;
+            background-color: gray;
             position: absolute;
         }
     </style>
@@ -56,6 +62,7 @@
 
         const keysPressed = {};
         const sprites = [{ element: sprite, x, y }]; // Array to track all sprites
+        const walls = []; // Array to track all walls
 
         document.addEventListener('keydown', (event) => {
             keysPressed[event.key] = true;
@@ -70,6 +77,9 @@
             const step = -0.2; // Pixels to move per keypress
 
             for (const spriteObj of sprites) {
+                let prevX = spriteObj.x;
+                let prevY = spriteObj.y;
+
                 if (keysPressed['w']) { // Move up
                     spriteObj.y -= step;
                 }
@@ -82,12 +92,43 @@
                 if (keysPressed['d']) { // Move right
                     spriteObj.x += step;
                 }
+                if (isCollidingWithWall(spriteObj)) {
+                    spriteObj.x = prevX;
+                    spriteObj.y = prevY;
+                }
 
                 spriteObj.element.style.left = `${spriteObj.x}px`;
                 spriteObj.element.style.top = `${spriteObj.y}px`;
             }
 
             requestAnimationFrame(moveSprites); // Ensure smooth movement
+        }
+        function isCollidingWithWall(spriteObj) {
+            for (const wall of walls) {
+                const spriteRect = {
+                    left: spriteObj.x,
+                    right: spriteObj.x + spriteObj.element.offsetWidth,
+                    top: spriteObj.y,
+                    bottom: spriteObj.y + spriteObj.element.offsetHeight
+                };
+
+                const wallRect = {
+                    left: wall.x,
+                    right: wall.x + wall.element.offsetWidth,
+                    top: wall.y,
+                    bottom: wall.y + wall.element.offsetHeight
+                };
+
+                if (
+                    spriteRect.right > wallRect.left &&
+                    spriteRect.left < wallRect.right &&
+                    spriteRect.bottom > wallRect.top &&
+                    spriteRect.top < wallRect.bottom
+                ) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         // Function to set a custom sprite texture
@@ -110,6 +151,18 @@
 
             sprites.push({ element: newSprite, x: startX, y: startY });
         }
+        // Function to create a wall
+        function createWall(width, height, startX, startY) {
+            const newWall = document.createElement('div');
+            newWall.classList.add('wall');
+            newWall.style.width = `${width}px`;
+            newWall.style.height = `${height}px`;
+            newWall.style.left = `${startX}px`;
+            newWall.style.top = `${startY}px`;
+            document.body.appendChild(newWall);
+
+            walls.push({ element: newWall, x: startX, y: startY });
+        }
 
         // Example: Set a default sprite texture when the page loads
         sprite.setSprite('./ggjjy.png'); // Replace 'sprite.png' with the actual file in your repository
@@ -119,6 +172,8 @@
         createSprite(800, 800, -200, -200, './ggjjy.png');
 
         sprite2.setSprite('./ggjjy.png');// Replace 'sprite.png' with the actual file in your repository
+        createWall(100, 100, 300, 300);
+        createWall(150, 150, 500, 200);
     </script>
 </body>
 </html>
